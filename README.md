@@ -1,4 +1,4 @@
-# 🩺 Health Jam Clinic
+# 🩺 Health Jam
 
 _A Hospital Management Web Application (TGWK12 – Web Development Fundamentals, Autumn 2025)_
 

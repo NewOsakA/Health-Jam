@@ -1,0 +1,25 @@
+<header class="header">
+  <nav class="container">
+    <ul>
+      <li><strong class="brand brand-lg">🩺 Health Jam</strong></li>
+    </ul>
+
+    <ul class="nav-right">
+      <li><a href="/" class="{{#if (eq title 'Home')}}is-active{{/if}}">Home</a></li>
+      <li><a href="/patients" class="{{#if (eq title 'Patients')}}is-active{{/if}}">Patients</a></li>
+      <li><a href="/doctors" class="{{#if (eq title 'Doctors')}}is-active{{/if}}">Doctors</a></li>
+      <li><a href="/appointments" class="{{#if (eq title 'Appointments')}}is-active{{/if}}">Appointments</a></li>
+      <li><a href="/about" class="{{#if (eq title 'About')}}is-active{{/if}}">About</a></li>
+      <li><a href="/contact" class="{{#if (eq title 'Contact')}}is-active{{/if}}">Contact</a></li>
+
+      {{#if session.loggedIn}}
+        <li class="">|</li>
+        <li><span class="hi">Hi, {{session.username}}</span></li>
+        <li><a href="/logout" class="secondary">Logout</a></li>
+      {{else}}
+        <li class="">|</li>
+        <li><a href="/login" class="{{#if (eq title 'Login')}}is-active{{/if}}">Login</a></li>
+      {{/if}}
+    </ul>
+  </nav>
+</header>
