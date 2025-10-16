@@ -1,0 +1,167 @@
+:root {
+  --brand: #0ea5a6; /* teal primary */
+  --brand-ink: #0d2031; /* deep ink */
+  --muted: #f6f8fa; /* soft background */
+}
+* {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+}
+body {
+  background: var(--muted);
+}
+.header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+.brand {
+  color: var(--brand-ink);
+}
+.nav-right {
+  align-items: center;
+}
+.nav-right .divider {
+  width: 1px;
+  height: 24px;
+  background: #e5e7eb;
+  margin: 0 0.5rem;
+}
+.hi {
+  opacity: 0.7;
+}
+
+.container {
+  max-width: 1080px;
+}
+main.container {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.footer {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e5e7eb;
+  opacity: 0.8;
+}
+
+/* Cards / panels */
+.panel {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+/* Tables */
+.table-wrap {
+  overflow: auto;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+table {
+  width: 100%;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  background: #f9fafb;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+.badge.success {
+  border-color: #10b981;
+  color: #065f46;
+}
+.badge.warn {
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+/* Forms */
+form .grid {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  form .grid.two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+select,
+textarea {
+  border-radius: 10px;
+}
+
+/* Buttons */
+button,
+.button,
+[role="button"] {
+  border-radius: 999px;
+}
+a.secondary {
+  border: 1px solid #e5e7eb;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.pagination a,
+.pagination span {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+}
+.pagination .active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+/* Utility */
+.m0 {
+  margin: 0;
+}
+.mt1 {
+  margin-top: 1rem;
+}
+.mt2 {
+  margin-top: 2rem;
+}
+.mb1 {
+  margin-bottom: 1rem;
+}
+.mb2 {
+  margin-bottom: 2rem;
+}
+.grid-auto {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 1024px) {
+  .grid-auto {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}

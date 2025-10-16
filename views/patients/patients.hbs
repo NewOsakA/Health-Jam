@@ -1,0 +1,58 @@
+<h2 class="m0">Patients</h2>
+<p class="m0">Manage registered patients</p>
+<div class="mt1">
+  <a href="/patients/add" role="button">Add patient</a>
+</div>
+
+<div class="table-wrap mt1">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full name</th>
+        <th>Birth date</th>
+        <th>Status</th>
+        <th style="width:160px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each patients}}
+        <tr>
+          <td>{{id}}</td>
+          <td><a href="/patients/{{id}}">{{first_name}} {{last_name}}</a></td>
+          <td>{{birth_date}}</td>
+          <td>
+            {{#if active}}
+              <span class="badge success">Active</span>
+            {{else}}
+              <span class="badge warn">Inactive</span>
+            {{/if}}
+          </td>
+          <td>
+            <a href="/patients/{{id}}/edit" class="secondary">Edit</a>
+            <form
+              action="/patients/{{id}}/delete"
+              method="POST"
+              style="display:inline"
+            >
+              <button type="submit" class="secondary">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{! Pagination (if you implemented it) }}
+{{#if pagination}}
+  <nav class="pagination">
+    {{#if pagination.prev}}<a href="{{pagination.prev}}">Prev</a>{{/if}}
+    {{#each pagination.pages}}
+      {{#if this.active}}<span class="active">{{this.n}}</span>{{else}}<a
+          href="{{this.url}}"
+        >{{this.n}}</a>{{/if}}
+    {{/each}}
+    {{#if pagination.next}}<a href="{{pagination.next}}">Next</a>{{/if}}
+  </nav>
+{{/if}}

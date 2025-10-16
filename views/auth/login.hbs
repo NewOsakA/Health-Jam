@@ -1,0 +1,27 @@
+<section class="panel" style="max-width:520px;margin:0 auto">
+  <h2 class="m0">Sign in</h2>
+  <p class="m0">Admin access for staff</p>
+
+  {{#if error}}
+    <mark class="mt1">{{error}}</mark>
+  {{/if}}
+
+  <form method="POST" action="/login" class="mt1">
+    <div class="grid two">
+      <label>
+        Username
+        <input type="text" name="username" required placeholder="admin" />
+      </label>
+      <label>
+        Password
+        <input
+          type="password"
+          name="password"
+          required
+          placeholder="wdf#2025"
+        />
+      </label>
+    </div>
+    <button type="submit" class="mt1">Sign in</button>
+  </form>
+</section>
