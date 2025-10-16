@@ -38,7 +38,26 @@ app.set("views", path.join(__dirname, "views"));
 
 const Handlebars = require("handlebars");
 Handlebars.registerHelper("eq", (a, b) => a === b);
+Handlebars.registerHelper("or", (a, b) => a || b);
 Handlebars.registerHelper("year", () => new Date().getFullYear());
+
+// helpers
+Handlebars.registerHelper("active", (expectedPath, currentPath) =>
+  currentPath === expectedPath ? "is-active" : ""
+);
+Handlebars.registerHelper("activeMatch", (pattern, currentPath) => {
+  try {
+    return new RegExp(pattern).test(currentPath) ? "is-active" : "";
+  } catch {
+    return "";
+  }
+});
+
+// expose path to all views
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next();
+});
 
 // --- Static (NOTE: your folder is "publics")
 app.use(express.static(path.join(__dirname, "publics")));

@@ -5,20 +5,41 @@
     </ul>
 
     <ul class="nav-right">
-      <li><a href="/" class="{{#if (eq title 'Home')}}is-active{{/if}}">Home</a></li>
-      <li><a href="/patients" class="{{#if (eq title 'Patients')}}is-active{{/if}}">Patients</a></li>
-      <li><a href="/doctors" class="{{#if (eq title 'Doctors')}}is-active{{/if}}">Doctors</a></li>
-      <li><a href="/appointments" class="{{#if (eq title 'Appointments')}}is-active{{/if}}">Appointments</a></li>
-      <li><a href="/about" class="{{#if (eq title 'About')}}is-active{{/if}}">About</a></li>
-      <li><a href="/contact" class="{{#if (eq title 'Contact')}}is-active{{/if}}">Contact</a></li>
+      <li><a href="/" class="{{active '/' path}}">Home</a></li>
+
+      <li class="dropdown nav-manage">
+        <a
+          href="/patients"
+          class="{{activeMatch '^/(patients|doctors|appointments)($|/)' path}}"
+        >
+          Manage
+        </a>
+        <ul class="menu">
+          <li><a
+              href="/patients"
+              class="{{active '/patients' path}}"
+            >Patients</a></li>
+          <li><a
+              href="/doctors"
+              class="{{active '/doctors' path}}"
+            >Doctors</a></li>
+          <li><a
+              href="/appointments"
+              class="{{active '/appointments' path}}"
+            >Appointments</a></li>
+        </ul>
+      </li>
+
+      <li><a href="/about" class="{{active '/about' path}}">About</a></li>
+      <li><a href="/contact" class="{{active '/contact' path}}">Contact</a></li>
 
       {{#if session.loggedIn}}
-        <li class="">|</li>
+        <li class="divider"></li>
         <li><span class="hi">Hi, {{session.username}}</span></li>
         <li><a href="/logout" class="secondary">Logout</a></li>
       {{else}}
-        <li class="">|</li>
-        <li><a href="/login" class="{{#if (eq title 'Login')}}is-active{{/if}}">Login</a></li>
+        <li class="divider"></li>
+        <li><a href="/login" class="{{active '/login' path}}">Login</a></li>
       {{/if}}
     </ul>
   </nav>

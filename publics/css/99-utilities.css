@@ -1,0 +1,32 @@
+/* Spacing helpers */
+.m0 {
+  margin: 0;
+}
+.mt1 {
+  margin-top: 1rem;
+}
+.mt2 {
+  margin-top: 2rem;
+}
+.mb1 {
+  margin-bottom: 1rem;
+}
+.mb2 {
+  margin-bottom: 2rem;
+}
+
+/* Simple grid helper */
+.grid-auto {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 1024px) {
+  .grid-auto {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* Minor text tweaks */
+.hi {
+  opacity: 0.7;
+}

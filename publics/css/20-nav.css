@@ -1,0 +1,120 @@
+/* ================================
+   Header & Navigation (clean version)
+================================ */
+.header {
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  color: var(--brand-ink);
+  font-weight: 700;
+}
+
+.brand.brand-lg {
+  font-size: clamp(1.25rem, 1.2rem + 1vw, 1.75rem);
+  letter-spacing: 0.2px;
+}
+
+.header nav {
+  position: relative;
+}
+
+.nav-right {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  position: relative;
+}
+
+.nav-right a {
+  position: relative;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  line-height: 1;
+  text-decoration: none;
+  color: var(--brand-ink);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Hover effect */
+.nav-right a:hover {
+  background: rgba(14, 165, 166, 0.1);
+  color: var(--brand-ink);
+}
+
+/* Active page style */
+.nav-right a.is-active {
+  background: var(--brand);
+  color: #fff;
+}
+
+/* Divider */
+.nav-right .divider {
+  width: 1px;
+  height: 24px;
+  background: var(--line);
+  margin: 0 0.5rem;
+}
+
+/* Dropdown menu */
+.dropdown {
+  position: relative;
+}
+
+.dropdown > a {
+  display: inline-block;
+}
+
+.dropdown .menu {
+  position: absolute;
+  top: calc(100% + 0px);
+  left: 0;
+  min-width: 220px;
+  padding: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(16, 24, 40, 0.08);
+  display: none;
+  z-index: 20;
+}
+
+.dropdown:hover .menu,
+.dropdown:focus-within .menu {
+  display: block;
+}
+
+.dropdown .menu li {
+  list-style: none;
+}
+
+.dropdown .menu a {
+  display: block;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  color: var(--brand-ink);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.dropdown .menu a:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.dropdown .menu a.is-active {
+  background: rgba(14, 165, 166, 0.12);
+  font-weight: 600;
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .nav-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .brand.brand-lg {
+    font-size: 1.25rem;
+  }
+}

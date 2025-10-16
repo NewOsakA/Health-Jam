@@ -1,0 +1,28 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+}
+
+main.container {
+  flex: 1 0 auto;
+  padding-block: 2rem;
+}
+
+footer.footer {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  background: #fff;
+  color: #6b7280;
+}
