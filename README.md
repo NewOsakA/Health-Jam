@@ -36,7 +36,7 @@ The project was developed as the final individual assignment for **TGWK12 – We
 ```bash
 # Clone the repository
  git clone <repo-url>
- cd HealthHub
+ cd Health-Jam
 
 # Install dependencies
  npm install

@@ -5,7 +5,7 @@ package-lock.json
 session-db.db
 
 # SQLite database
-clinic.db
+# clinic.db
 
 # Logs
 npm-debug.log*
