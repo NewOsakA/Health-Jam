@@ -1,0 +1,27 @@
+<section class="panel">
+  <h2 class="m0">User Accounts</h2>
+  <p class="m0">Manage application users.</p>
+
+  <div class="table-wrap mt1">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:70px;">ID</th>
+          <th>Username</th>
+          <th style="width:120px;">Role</th>
+          <th style="width:180px;">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}}
+          <tr>
+            <td>{{id}}</td>
+            <td>{{username}}</td>
+            <td>{{#if is_admin}}Admin{{else}}User{{/if}}</td>
+            <td>{{createdAt}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>

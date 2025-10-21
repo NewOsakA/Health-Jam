@@ -16,7 +16,6 @@
 
 .auth-form {
   display: grid;
-  gap: 1rem;
   margin-top: 1rem;
 }
 .auth-form label span {
@@ -49,47 +48,47 @@
 /* Action row */
 .btn-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 0.75rem;
+  gap: 1rem;
+  align-items: stretch; /* ensure equal heights */
+  margin-top: 1rem;
 }
+
 .btn-primary,
 .btn-ghost {
-  flex: 1;
-  text-align: center;
-  padding: 0.85rem 1.1rem;
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1rem; /* same vertical rhythm */
+  height: 48px; /* locked equal height */
+  border-radius: 12px; /* same shape */
+  line-height: 1; /* avoid baseline misalignment */
+  text-decoration: none; /* for <a> links */
+  box-sizing: border-box;
+  font-weight: 600;
 }
 
 .btn-primary {
-  background: #0b74b5;
+  background: var(--brand);
   color: #fff;
-  border: 0;
-  font-weight: 600;
-  box-shadow: 0 4px 14px rgba(11, 116, 181, 0.18);
-  transition: filter 0.15s ease, transform 0.02s ease;
+  border: 1px solid var(--brand);
 }
+
 .btn-primary:hover {
-  filter: brightness(1.05);
-}
-.btn-primary:active {
-  transform: translateY(1px);
+  filter: brightness(0.95);
 }
 
 .btn-ghost {
-  background: #fff;
-  border: 1px solid #cbd5e1;
-  border-radius: var(--radius-pill);
-  color: var(--text-strong);
-  font-weight: 500;
-  text-decoration: none;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-.btn-ghost:hover {
-  background: #f1f5f9;
-  border-color: #94a3b8;
+  background: transparent;
+  color: var(--brand);
+  border: 1px solid var(--brand);
 }
 
+.btn-ghost:hover {
+  background: rgba(0, 119, 200, 0.06);
+}
+
+/* Mobile: stack vertically */
 @media (max-width: 520px) {
   .btn-row {
     flex-direction: column;

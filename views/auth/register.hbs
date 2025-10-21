@@ -1,0 +1,81 @@
+<section class="panel auth-card">
+  <header class="auth-header">
+    <h1 class="m0">Create account</h1>
+    <p class="auth-subtitle">Join Health Jam</p>
+  </header>
+
+  {{#if error}}
+    <div class="auth-alert" role="alert">{{error}}</div>
+  {{/if}}
+
+  <form
+    method="POST"
+    action="/register"
+    class="auth-form"
+    id="register-form"
+    novalidate
+  >
+    <label>
+      <span>Username</span>
+      <input
+        type="text"
+        name="username"
+        required
+        minlength="3"
+        placeholder="Username"
+        autocomplete="username"
+        value="{{username}}"
+      />
+    </label>
+
+    <label>
+      <span>Password</span>
+      <input
+        type="password"
+        name="password"
+        required
+        minlength="6"
+        placeholder="Create a password"
+        autocomplete="new-password"
+        id="password"
+      />
+    </label>
+
+    <label>
+      <span>Confirm password</span>
+      <input
+        type="password"
+        name="confirmPassword"
+        required
+        minlength="6"
+        placeholder="Re-enter password"
+        autocomplete="new-password"
+        id="confirmPassword"
+      />
+      <small
+        id="matchHelp"
+        class="field-help"
+        style="display:none;color:var(--danger, #b91c1c)"
+      >
+        Passwords do not match.
+      </small>
+    </label>
+
+    <div class="btn-row">
+      <button type="submit" class="btn-primary">Sign up</button>
+      <a href="/login" class="btn-ghost">Back to login</a>
+    </div>
+  </form>
+</section>
+
+<script>
+  // Tiny client-side check for UX (server still validates) (function () { const
+  form = document.getElementById('register-form'); const pwd =
+  document.getElementById('password'); const cpw =
+  document.getElementById('confirmPassword'); const help =
+  document.getElementById('matchHelp'); function checkMatch() { const ok =
+  cpw.value.length === 0 || pwd.value === cpw.value; help.style.display = ok ?
+  'none' : 'block'; return ok; } pwd.addEventListener('input', checkMatch);
+  cpw.addEventListener('input', checkMatch); form.addEventListener('submit',
+  function (e) { if (!checkMatch()) e.preventDefault(); }); })();
+</script>

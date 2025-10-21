@@ -5,9 +5,11 @@ const router = express.Router();
 const mainRoutes = require("./mainRoutes.js");
 const authRoutes = require("./authRoutes.js");
 const patientRoutes = require("./patientRoutes.js");
+const requireAdmin = require("../middleware/requireAdmin");
 
 router.use("/", mainRoutes);
 router.use("/", authRoutes);
 router.use("/patients", patientRoutes);
+router.use("/accounts", requireAdmin, require("./accountRoutes.js"));
 
 module.exports = router;

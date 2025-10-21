@@ -37,51 +37,73 @@ function get(db, sql, params = []) {
 }
 
 async function ensureUsersTable() {
+  // Create the users table if not exists
   await run(
     db,
     `CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE NOT NULL,
       passwordHash TEXT NOT NULL,
+      is_admin INTEGER DEFAULT 0,          -- 0 = false, 1 = true
       createdAt TEXT DEFAULT (datetime('now'))
     )`
   );
+
+  // Check if the table already had this column, add if missing
+  const columns = await new Promise((resolve, reject) => {
+    db.all("PRAGMA table_info(users)", (err, rows) => {
+      if (err) reject(err);
+      else resolve(rows);
+    });
+  });
+
+  const hasIsAdmin = columns.some((col) => col.name === "is_admin");
+  if (!hasIsAdmin) {
+    await run(db, `ALTER TABLE users ADD COLUMN is_admin INTEGER DEFAULT 0`);
+    console.log("Added missing column: is_admin (default false).");
+  }
 }
 
 async function ensureAdminPassword() {
   const admin = await get(
     db,
-    `SELECT id, username, passwordHash FROM users WHERE username = ?`,
+    `SELECT id, username, passwordHash, is_admin FROM users WHERE username = ?`,
     [ADMIN_USERNAME]
   );
+
   const desiredHash = await bcrypt.hash(ADMIN_PLAINTEXT, SALT_ROUNDS);
 
   if (!admin) {
-    await run(db, `INSERT INTO users (username, passwordHash) VALUES (?, ?)`, [
-      ADMIN_USERNAME,
-      desiredHash,
-    ]);
-    console.log("Seeded admin user with default password.");
+    await run(
+      db,
+      `INSERT INTO users (username, passwordHash, is_admin) VALUES (?, ?, 1)`,
+      [ADMIN_USERNAME, desiredHash]
+    );
+    console.log("Seeded admin user with default password and is_admin=true.");
     return;
   }
 
-  // If the stored hash does not match `wdf#2025`, overwrite it.
+  // Ensure the admin has the correct password and is_admin flag
   const ok = await bcrypt.compare(ADMIN_PLAINTEXT, admin.passwordHash);
   if (!ok) {
-    await run(db, `UPDATE users SET passwordHash = ? WHERE id = ?`, [
-      desiredHash,
-      admin.id,
-    ]);
-    console.log("Updated admin password to default (wdf#2025).");
+    await run(
+      db,
+      `UPDATE users SET passwordHash = ?, is_admin = 1 WHERE id = ?`,
+      [desiredHash, admin.id]
+    );
+    console.log("Updated admin password and enforced is_admin=true.");
+  } else if (!admin.is_admin) {
+    await run(db, `UPDATE users SET is_admin = 1 WHERE id = ?`, [admin.id]);
+    console.log("Updated admin user to is_admin=true.");
   } else {
-    console.log("Admin password already set correctly.");
+    console.log("Admin password and privileges are already correct.");
   }
 }
 
 async function initDb() {
   await ensureUsersTable();
   await ensureAdminPassword();
-  // NOTE: we leave your other tables as-is
+  // Leave other tables as they are
 }
 
 module.exports = { db, initDb };
