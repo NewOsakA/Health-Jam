@@ -1,7 +1,16 @@
-<h2 class="m0">Patients</h2>
-<p class="m0">Manage registered patients</p>
-<div class="mt1">
-  <a href="/patients/add" role="button">Add patient</a>
+<div class="page-header">
+  <div>
+    <h2 class="m0">Patients</h2>
+    <p class="m0">Manage registered patients</p>
+  </div>
+  <button
+    type="button"
+    class="page-header__action"
+    data-open-modal="add-patient"
+    data-modal-mode="create"
+  >
+    Add patient
+  </button>
 </div>
 
 <div class="table-wrap mt1">
@@ -11,31 +20,51 @@
         <th>ID</th>
         <th>Full name</th>
         <th>Birth date</th>
-        <th>Status</th>
-        <th style="width:160px;">Actions</th>
+        <th>Condition</th>
+        <th style="width:110px;">Actions</th>
       </tr>
     </thead>
     <tbody>
       {{#each patients}}
         <tr>
           <td>{{id}}</td>
-          <td><a href="/patients/{{id}}">{{first_name}} {{last_name}}</a></td>
-          <td>{{birth_date}}</td>
-          <td>
-            {{#if active}}
-              <span class="badge success">Active</span>
+          <td><a href="/patients/{{id}}">{{fullName}}</a></td>
+          <td>{{birthDate}}</td>
+          <td class="table-condition">
+            {{#if illness}}
+              {{illness}}
             {{else}}
-              <span class="badge warn">Inactive</span>
+              <span class="text-muted">No record</span>
             {{/if}}
           </td>
-          <td>
-            <a href="/patients/{{id}}/edit" class="secondary">Edit</a>
+          <td class="table-actions">
+            <button
+              type="button"
+              class="icon-button secondary"
+              title="Edit patient"
+              aria-label="Edit patient"
+              data-open-modal="add-patient"
+              data-modal-mode="edit"
+              data-patient-id="{{id}}"
+              data-patient-name="{{fullName}}"
+              data-patient-birth="{{birthDate}}"
+              data-patient-illness="{{#if illness}}{{illness}}{{/if}}"
+            >
+              ✏️
+            </button>
             <form
               action="/patients/{{id}}/delete"
               method="POST"
-              style="display:inline"
+              class="inline-form"
+              data-confirm="delete"
+              data-confirm-name="{{fullName}}"
             >
-              <button type="submit" class="secondary">Delete</button>
+              <button
+                type="submit"
+                class="icon-button secondary"
+                title="Delete patient"
+                aria-label="Delete patient"
+              >🗑️</button>
             </form>
           </td>
         </tr>
@@ -56,3 +85,67 @@
     {{#if pagination.next}}<a href="{{pagination.next}}">Next</a>{{/if}}
   </nav>
 {{/if}}
+
+<div
+  class="modal"
+  id="add-patient-modal"
+  aria-hidden="true"
+  data-modal="add-patient"
+>
+  <div class="modal__backdrop" data-close-modal="true"></div>
+  <div
+    class="modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="addPatientTitle"
+  >
+    <button
+      class="modal__close icon-button secondary"
+      type="button"
+      data-close-modal="true"
+      aria-label="Close add patient form"
+    >
+      ✖️
+    </button>
+    <h3 id="addPatientTitle" class="modal__title m0">Add patient</h3>
+    <p class="modal__subtitle text-muted" data-modal-subtitle>
+      Fill out the details below to add a new patient record.
+    </p>
+    <form
+      action="/patients/add"
+      method="POST"
+      class="modal__form"
+      data-patient-form
+    >
+      <input type="hidden" name="id" value="" />
+      <label>
+        <span>Full name</span>
+        <input type="text" name="fullName" required />
+      </label>
+      <label>
+        <span>Birth date</span>
+        <input type="date" name="birthDate" required />
+      </label>
+      <label class="modal__full">
+        <span>Condition / Illness</span>
+        <textarea
+          name="illness"
+          rows="3"
+          placeholder="Optional notes"
+        ></textarea>
+      </label>
+      <div class="modal__actions modal__full">
+        <button type="submit" data-submit-label>Save patient</button>
+        <button
+          type="button"
+          class="secondary"
+          data-close-modal="true"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/patients.js" defer></script>

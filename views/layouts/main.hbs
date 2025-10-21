@@ -28,5 +28,44 @@
     </main>
 
     {{> footer }}  
+    <div
+      class="modal"
+      id="confirm-modal"
+      aria-hidden="true"
+      data-modal="confirm"
+    >
+      <div class="modal__backdrop" data-close-modal="true"></div>
+      <div
+        class="modal__dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="confirmModalTitle"
+      >
+        <button
+          class="modal__close icon-button secondary"
+          type="button"
+          data-close-modal="true"
+          aria-label="Close confirmation"
+        >
+          ✖️
+        </button>
+        <h3 id="confirmModalTitle" class="modal__title m0">Are you sure?</h3>
+        <p class="modal__subtitle text-muted" data-confirm-message>
+          This action cannot be undone.
+        </p>
+        <div class="modal__actions modal__full">
+          <form method="POST" data-confirm-form>
+            <button type="submit" class="danger" data-focus-default>Yes, delete</button>
+          </form>
+          <button
+            type="button"
+            class="secondary"
+            data-close-modal="true"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -7,42 +7,44 @@
     <ul class="nav-right">
       <li><a href="/" class="{{active '/' path}}">Home</a></li>
 
-      <li class="dropdown nav-manage">
-        <a
-          href="/patients"
-          class="{{activeMatch
-              '^/(patients|doctors|appointments|accounts)($|/)'
-              path
-            }}"
-        >
-          Manage
-        </a>
-        <ul class="menu">
-          <li><a
-              href="/patients"
-              class="{{active '/patients' path}}"
-            >Patients</a></li>
-          <li><a
-              href="/doctors"
-              class="{{active '/doctors' path}}"
-            >Doctors</a></li>
-          <li><a
-              href="/appointments"
-              class="{{active '/appointments' path}}"
-            >Appointments</a></li>
-
-          {{! Only admins see Accounts }}
-          {{#if session.is_admin}}
-            <li><hr
-                style="border:none;border-top:1px solid var(--line);margin:.35rem 0;"
-              /></li>
+      {{#if session.loggedIn}}
+        <li class="dropdown nav-manage">
+          <a
+            href="/patients"
+            class="{{activeMatch
+                '^/(patients|doctors|appointments|accounts)($|/)'
+                path
+              }}"
+          >
+            Manage
+          </a>
+          <ul class="menu">
             <li><a
-                href="/accounts"
-                class="{{active '/accounts' path}}"
-              >Accounts</a></li>
-          {{/if}}
-        </ul>
-      </li>
+                href="/patients"
+                class="{{active '/patients' path}}"
+              >Patients</a></li>
+            <li><a
+                href="/doctors"
+                class="{{active '/doctors' path}}"
+              >Doctors</a></li>
+            <li><a
+                href="/appointments"
+                class="{{active '/appointments' path}}"
+              >Appointments</a></li>
+
+            {{! Only admins see Accounts }}
+            {{#if session.is_admin}}
+              <li><hr
+                  style="border:none;border-top:1px solid var(--line);margin:.35rem 0;"
+                /></li>
+              <li><a
+                  href="/accounts"
+                  class="{{active '/accounts' path}}"
+                >Accounts</a></li>
+            {{/if}}
+          </ul>
+        </li>
+      {{/if}}
 
       <li><a href="/about" class="{{active '/about' path}}">About</a></li>
       <li><a href="/contact" class="{{active '/contact' path}}">Contact</a></li>
