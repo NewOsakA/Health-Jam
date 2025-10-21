@@ -1,12 +1,46 @@
-<section class="panel">
-  <h2 class="m0">Contact</h2>
-  <form method="POST" action="/contact" class="mt1">
-    <div class="grid two">
-      <label>Name <input type="text" name="name" required /></label>
-      <label>Email <input type="email" name="email" required /></label>
+<section class="panel contact-hero">
+  <div>
+    <h1 class="hero__title">Talk with the Health Jam team</h1>
+    <p class="hero__subtitle">
+      Need a walkthrough, have feedback, or spotted an issue? Drop us a note and
+      we’ll get back within one business day.
+    </p>
+    <div class="contact-channels">
+      <div class="contact-card">
+        <strong>Support email</strong>
+        <a href="mailto:support@healthjam.app">support@healthjam.app</a>
+        <span>Reach out for product help or bug reports.</span>
+      </div>
+      <div class="contact-card">
+        <strong>Phone</strong>
+        <a href="tel:+66987654321">+66 98 765 4321</a>
+        <span>Weekdays · 9am–6pm GMT</span>
+      </div>
     </div>
-    <label>Message
-      <textarea name="message" rows="5" required></textarea></label>
-    <button type="submit" class="mt1">Send</button>
-  </form>
+  </div>
+  <div class="contact-form">
+    <form method="POST" action="/contact">
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        <span>How can we help?</span>
+        <textarea
+          name="message"
+          rows="5"
+          required
+          placeholder="Tell us about your request"
+        ></textarea>
+      </label>
+      <div class="btn-row">
+        <button type="submit">Send message</button>
+        <a href="tel:+66987654321" class="btn-ghost">Call support</a>
+      </div>
+    </form>
+  </div>
 </section>

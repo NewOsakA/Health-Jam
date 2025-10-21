@@ -1,34 +1,68 @@
-<section class="panel">
-  <hgroup>
-    <h1 class="m0">Welcome to Health Jam Clinic</h1>
-    <p class="m0">Professional care, simplified scheduling, and clear records.</p>
-  </hgroup>
+<section class="hero">
+  <div class="hero__text">
+    <h1 class="hero__title">Run your clinic with confidence</h1>
+    <p class="hero__subtitle">
+      Health Jam centralizes patient, doctor rosters, and appointments so your
+      team can focus on care not paperwork.
+    </p>
+    <div class="hero__actions">
+      <a href="/patients" role="button">Manage patients</a>
+      <a href="/appointments" role="button" class="secondary">Schedule visits</a>
+    </div>
+  </div>
+  <div class="hero__metrics">
+    {{#each stats}}
+      <div class="hero__metric">
+        <strong>{{this.value}}</strong>
+        <span>{{this.label}}</span>
+      </div>
+    {{/each}}
+  </div>
+</section>
 
-  <div class="grid-auto mt2">
-    <article class="panel" style="grid-column: span 4;">
-      <h3 class="m0">Patients</h3>
-      <p class="m0">Register and manage patient records.</p>
-      <footer class="mt1"><a href="/patients" role="button">Open Patients</a></footer>
+<section class="panel mt2">
+  <h2 class="m0">What you can do with Health Jam</h2>
+  <div class="home-grid mt2">
+    <article class="panel feature">
+      <h3 class="m0">Patient records</h3>
+      <p class="m0">
+        Capture demographics, conditions, and quick notes. View or update
+        history in one place.
+      </p>
+      <footer class="mt1">
+        <a href="/patients" role="button" class="secondary">Open Patients</a>
+      </footer>
     </article>
-
-    <article class="panel" style="grid-column: span 4;">
-      <h3 class="m0">Doctors</h3>
-      <p class="m0">Browse specialists and availability.</p>
-      <footer class="mt1"><a
-          href="/doctors"
-          role="button"
-          class="secondary"
-        >Open Doctors</a></footer>
+    <article class="panel feature">
+      <h3 class="m0">Doctor directory</h3>
+      <p class="m0">
+        Maintain the full medical staff roster by specialty so scheduling stays
+        accurate.
+      </p>
+      <footer class="mt1">
+        <a href="/doctors" role="button" class="secondary">Open Doctors</a>
+      </footer>
     </article>
-
-    <article class="panel" style="grid-column: span 4;">
+    <article class="panel feature">
       <h3 class="m0">Appointments</h3>
-      <p class="m0">Book and track upcoming visits.</p>
-      <footer class="mt1"><a
-          href="/appointments"
-          role="button"
-          class="secondary"
-        >Open Appointments</a></footer>
+      <p class="m0">
+        Pair patients with the right doctor and time slot—edit or cancel
+        whenever plans change.
+      </p>
+      <footer class="mt1">
+        <a href="/appointments" role="button" class="secondary">Open
+          Appointments</a>
+      </footer>
+    </article>
+    <article class="panel feature">
+      <h3 class="m0">Admin oversight</h3>
+      <p class="m0">
+        Promote staff to administrators or revoke access instantly with account
+        controls.
+      </p>
+      <footer class="mt1">
+        <a href="/accounts" role="button" class="secondary">Manage Accounts</a>
+      </footer>
     </article>
   </div>
 </section>

@@ -8,6 +8,7 @@
   {{/if}}
 
   <form method="POST" action="/login" class="auth-form">
+    <input type="hidden" name="next" value="{{next}}" />
     <label>
       <span>Username</span>
       <input

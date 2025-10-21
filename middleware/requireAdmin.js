@@ -1,6 +1,10 @@
 module.exports = function requireAdmin(req, res, next) {
-  if (req.session?.loggedIn && req.session?.is_admin) return next();
-  // Optionally flash a message here
+  if (!req.session?.loggedIn) {
+    return res.redirect(`/login?next=${encodeURIComponent(req.originalUrl || "/")}`);
+  }
+
+  if (req.session.is_admin) return next();
+
   return res
     .status(403)
     .render("errors/403", {

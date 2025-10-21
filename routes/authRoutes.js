@@ -15,12 +15,14 @@ const router = express.Router();
 
 router.get("/login", (req, res) => {
   if (req.session?.loggedIn) return res.redirect("/");
-  res.render("auth/login", { title: "Login" });
+  const next = req.query.next && req.query.next.startsWith("/") ? req.query.next : "";
+  res.render("auth/login", { title: "Login", next });
 });
 
 router.post("/login", (req, res) => {
   const username = (req.body?.username || "").trim();
   const password = req.body?.password || "";
+  const next = req.body?.next && req.body.next.startsWith("/") ? req.body.next : "/";
 
   if (!username || !password) {
     return res.status(400).render("auth/login", {
@@ -63,7 +65,7 @@ router.post("/login", (req, res) => {
       req.session.is_admin = !!user.is_admin; // <-- ADD THIS
 
       // Ensure session is saved before redirect
-      req.session.save(() => res.redirect("/"));
+      req.session.save(() => res.redirect(next));
     } catch (e) {
       console.error("bcrypt error:", e);
       return res.status(500).render("auth/login", {
