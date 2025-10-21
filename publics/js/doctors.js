@@ -1,20 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const patientModal = document.querySelector('[data-modal="add-patient"]');
-  const viewModal = document.querySelector('[data-modal="view-patient"]');
-  if (!patientModal) return;
+  const doctorModal = document.querySelector('[data-modal="add-doctor"]');
+  if (!doctorModal) return;
 
+  const viewModal = document.querySelector('[data-modal="view-doctor"]');
   const confirmModal = document.querySelector('[data-modal="confirm"]');
 
-  /* ===== Patient create/edit modal ===== */
-  const patientForm = patientModal.querySelector("[data-patient-form]");
-  const hiddenId = patientForm?.querySelector('input[name="id"]');
-  const nameInput = patientForm?.querySelector('input[name="fullName"]');
-  const birthInput = patientForm?.querySelector('input[name="birthDate"]');
-  const illnessInput = patientForm?.querySelector('textarea[name="illness"]');
-  const submitButton = patientForm?.querySelector("[data-submit-label]");
-  const titleEl = patientModal.querySelector(".modal__title");
-  const subtitleEl = patientModal.querySelector("[data-modal-subtitle]");
-  const firstField = patientModal.querySelector('input[name="fullName"]');
+  const doctorForm = doctorModal.querySelector("[data-doctor-form]");
+  const hiddenId = doctorForm?.querySelector('input[name="id"]');
+  const nameInput = doctorForm?.querySelector('input[name="fullName"]');
+  const specialtyInput = doctorForm?.querySelector('input[name="specialty"]');
+  const submitButton = doctorForm?.querySelector("[data-doctor-submit]");
+  const titleEl = doctorModal.querySelector(".modal__title");
+  const subtitleEl = doctorModal.querySelector("[data-doctor-modal-subtitle]");
+  const firstField = doctorModal.querySelector('input[name="fullName"]');
 
   const defaults = {
     title: titleEl ? titleEl.textContent.trim() : "",
@@ -22,40 +20,39 @@ document.addEventListener("DOMContentLoaded", () => {
     submit: submitButton ? submitButton.textContent.trim() : "",
   };
 
-  const openPatientButtons = document.querySelectorAll(
-    '[data-open-modal="add-patient"]'
+  const openDoctorButtons = document.querySelectorAll(
+    '[data-open-modal="add-doctor"]'
   );
 
   const viewFields = viewModal
     ? {
-        name: viewModal.querySelector('[data-view-field="name"]'),
-        birth: viewModal.querySelector('[data-view-field="birth"]'),
-        illness: viewModal.querySelector('[data-view-field="illness"]'),
+        name: viewModal.querySelector('[data-doctor-field="name"]'),
+        specialty: viewModal.querySelector('[data-doctor-field="specialty"]'),
       }
     : null;
 
-  function setPatientMode(mode, dataset = {}) {
-    if (!patientForm) return;
+  function setDoctorMode(mode, dataset = {}) {
+    if (!doctorForm) return;
     if (mode === "edit") {
-      const id = dataset.patientId || "";
-      patientForm.action = `/patients/${id}/edit`;
+      const id = dataset.doctorId || "";
+      doctorForm.action = `/doctors/${id}/edit`;
       if (hiddenId) hiddenId.value = id;
-      if (nameInput) nameInput.value = dataset.patientName || "";
-      if (birthInput) birthInput.value = dataset.patientBirth || "";
-      if (illnessInput)
-        illnessInput.value = dataset.patientIllness || "";
-      if (titleEl) titleEl.textContent = "Edit patient";
+      if (nameInput) nameInput.value = dataset.doctorName || "";
+      if (specialtyInput) {
+        specialtyInput.value = dataset.doctorSpecialty || "";
+      }
+      if (titleEl) titleEl.textContent = "Edit doctor";
       if (subtitleEl)
-        subtitleEl.textContent = "Update the patient details below.";
-      if (submitButton) submitButton.textContent = "Update patient";
+        subtitleEl.textContent = "Update the doctor details below.";
+      if (submitButton) submitButton.textContent = "Update doctor";
     } else {
-      patientForm.action = "/patients/add";
-      patientForm.reset();
+      doctorForm.action = "/doctors/add";
+      doctorForm.reset();
       if (hiddenId) hiddenId.value = "";
       if (titleEl) titleEl.textContent = defaults.title;
       if (subtitleEl) subtitleEl.textContent = defaults.subtitle;
       if (submitButton)
-        submitButton.textContent = defaults.submit || "Save patient";
+        submitButton.textContent = defaults.submit || "Save doctor";
     }
   }
 
@@ -79,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalEl.setAttribute("aria-hidden", "false");
     document.body.style.setProperty("overflow", "hidden");
     setTimeout(() => {
-      if (modalEl === patientModal && firstField) {
+      if (modalEl === doctorModal && firstField) {
         firstField.focus();
       } else {
         focusFirst(modalEl);
@@ -95,13 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
       `[data-open-modal="${modalEl.dataset.modal}"]`
     );
     openers.forEach((btn) => btn.setAttribute("aria-expanded", "false"));
-    if (modalEl === patientModal) {
-      setPatientMode("create");
-    }
-    if (modalEl === viewModal && viewFields) {
-      Object.values(viewFields).forEach((field) => {
-        if (field) field.value = "";
-      });
+    if (modalEl === doctorModal) {
+      setDoctorMode("create");
+    } else if (modalEl === viewModal && viewFields) {
+      Object.values(viewFields).forEach((field) => field && (field.value = ""));
     }
     if (!document.querySelector(".modal.is-open")) {
       document.body.style.removeProperty("overflow");
@@ -115,19 +109,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (openAttr) {
       const target = openAttr.dataset.openModal;
       const modalEl = document.querySelector(`[data-modal="${target}"]`);
-      if (modalEl === patientModal) {
+      if (modalEl === doctorModal) {
         const mode =
           openAttr.getAttribute("data-modal-mode") === "edit"
             ? "edit"
             : "create";
-        setPatientMode(mode, openAttr.dataset);
+        setDoctorMode(mode, openAttr.dataset);
       } else if (modalEl === viewModal && viewFields) {
         if (viewFields.name)
-          viewFields.name.value = openAttr.dataset.patientName || "";
-        if (viewFields.birth)
-          viewFields.birth.value = openAttr.dataset.patientBirth || "";
-        if (viewFields.illness)
-          viewFields.illness.value = openAttr.dataset.patientIllness || "";
+          viewFields.name.value = openAttr.dataset.doctorName || "";
+        if (viewFields.specialty)
+          viewFields.specialty.value = openAttr.dataset.doctorSpecialty || "";
       }
       openAttr.setAttribute("aria-expanded", "true");
       openModal(modalEl);
@@ -197,22 +189,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const params = new URLSearchParams(window.location.search);
-  if (params.get("modal") === "add-patient") {
+  if (params.get("modal") === "add-doctor") {
     const modeParam = params.get("mode");
     const idParam = params.get("id");
     if (modeParam === "edit" && idParam) {
-      const targetBtn = Array.from(openPatientButtons).find(
-        (btn) => btn.dataset.patientId === idParam
+      const targetBtn = Array.from(openDoctorButtons).find(
+        (btn) => btn.dataset.doctorId === idParam
       );
       if (targetBtn) {
-        setPatientMode("edit", targetBtn.dataset);
+        setDoctorMode("edit", targetBtn.dataset);
       } else {
-        setPatientMode("create");
+        setDoctorMode("create");
       }
     } else {
-      setPatientMode("create");
+      setDoctorMode("create");
     }
-    openModal(patientModal);
+    openModal(doctorModal);
     params.delete("modal");
     params.delete("mode");
     params.delete("id");

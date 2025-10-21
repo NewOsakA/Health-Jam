@@ -1,0 +1,53 @@
+<div
+  class="modal"
+  id="add-doctor-modal"
+  aria-hidden="true"
+  data-modal="add-doctor"
+>
+  <div class="modal__backdrop" data-close-modal="true"></div>
+  <div
+    class="modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="addDoctorTitle"
+  >
+    <button
+      class="modal__close icon-button secondary"
+      type="button"
+      data-close-modal="true"
+      aria-label="Close add doctor form"
+    >
+      ✖️
+    </button>
+    <h3 id="addDoctorTitle" class="modal__title m0">Add doctor</h3>
+    <p class="modal__subtitle text-muted" data-doctor-modal-subtitle>
+      Fill out the details below to add a new doctor to the clinic.
+    </p>
+    <form
+      action="/doctors/add"
+      method="POST"
+      class="modal__form"
+      data-doctor-form
+    >
+      <input type="hidden" name="id" value="" />
+      <label>
+        <span>Full name</span>
+        <input type="text" name="fullName" required />
+      </label>
+      <label class="modal__full">
+        <span>Specialty</span>
+        <input type="text" name="specialty" required />
+      </label>
+      <div class="modal__actions modal__full">
+        <button type="submit" data-doctor-submit>Save doctor</button>
+        <button
+          type="button"
+          class="secondary"
+          data-close-modal="true"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

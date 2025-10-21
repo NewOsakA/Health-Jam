@@ -96,10 +96,13 @@ a.secondary {
   border: 1px solid var(--line);
 }
 button.secondary {
-  margin-top: 1rem;
   border: 1px solid var(--line);
   background: #ffffff;
   color: var(--text);
+}
+button.inline {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 button.secondary:hover,
 button.secondary:focus {
@@ -107,7 +110,7 @@ button.secondary:focus {
 }
 button.danger {
   border: none;
-  background: #f12f2f;
+  background: #dc2626;
   color: #ffffff;
 }
 button.danger:hover,
@@ -268,4 +271,14 @@ button.danger:focus {
 }
 .modal__actions form {
   margin: 0;
+}
+.modal__form--static input,
+.modal__form--static textarea {
+  background: #f8fafc;
+  border: 1px solid var(--line);
+  color: var(--text);
+  pointer-events: none;
+}
+.modal__form--static textarea {
+  resize: none;
 }

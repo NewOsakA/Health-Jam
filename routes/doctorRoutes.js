@@ -2,19 +2,18 @@ const express = require("express");
 const router = express.Router();
 const { db } = require("../database.js");
 
-// Patients list route
 router.get("/", (req, res) => {
   const perPage = 5;
   const requestedPage = parseInt(req.query.page, 10);
   let page =
     Number.isNaN(requestedPage) || requestedPage < 1 ? 1 : requestedPage;
 
-  db.get("SELECT COUNT(*) AS total FROM patients", (countErr, countRow) => {
+  db.get("SELECT COUNT(*) AS total FROM doctors", (countErr, countRow) => {
     if (countErr) {
       console.error(countErr.message);
-      return res.render("patients", {
-        title: "Patient List",
-        patients: [],
+      return res.render("doctors", {
+        title: "Doctors",
+        doctors: [],
         pagination: null,
       });
     }
@@ -25,20 +24,20 @@ router.get("/", (req, res) => {
     const offset = (page - 1) * perPage;
 
     db.all(
-      "SELECT * FROM patients ORDER BY id ASC LIMIT ? OFFSET ?",
+      "SELECT * FROM doctors ORDER BY id ASC LIMIT ? OFFSET ?",
       [perPage, offset],
       (err, rows) => {
         if (err) {
           console.error(err.message);
-          return res.render("patients", {
-            title: "Patient List",
-            patients: [],
+          return res.render("doctors", {
+            title: "Doctors",
+            doctors: [],
             pagination: null,
           });
         }
 
         const buildPageUrl = (pageNumber) =>
-          pageNumber === 1 ? "/patients" : `/patients?page=${pageNumber}`;
+          pageNumber === 1 ? "/doctors" : `/doctors?page=${pageNumber}`;
 
         const pagination =
           totalPages > 1
@@ -56,9 +55,9 @@ router.get("/", (req, res) => {
               }
             : null;
 
-        res.render("patients", {
-          title: "Patient List",
-          patients: rows,
+        res.render("doctors", {
+          title: "Doctors",
+          doctors: rows,
           pagination,
         });
       }
@@ -66,68 +65,63 @@ router.get("/", (req, res) => {
   });
 });
 
-// GET route to display the "Add Patient" form
 router.get("/add", (req, res) => {
-  res.redirect(302, "/patients?modal=add-patient");
+  res.redirect(302, "/doctors?modal=add-doctor");
 });
 
-// GET route to open edit modal via direct link
 router.get("/:id/edit", (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (Number.isNaN(id)) {
-    return res.redirect("/patients");
+    return res.redirect("/doctors");
   }
-  res.redirect(302, `/patients?modal=add-patient&mode=edit&id=${id}`);
+  res.redirect(302, `/doctors?modal=add-doctor&mode=edit&id=${id}`);
 });
 
-// POST route to handle add form submission
 router.post("/add", (req, res) => {
-  const { fullName, birthDate, illness } = req.body;
+  const { fullName, specialty } = req.body;
   const sql =
-    "INSERT INTO patients (fullName, birthDate, illness) VALUES (?, ?, ?)";
+    "INSERT INTO doctors (fullName, specialty) VALUES (?, ?)";
 
-  db.run(sql, [fullName, birthDate, illness], (err) => {
+  db.run(sql, [fullName, specialty], (err) => {
     if (err) {
       console.error(err.message);
-      return res.redirect("/patients?error=add");
+      return res.redirect("/doctors?error=add");
     }
-    // Redirect back to the patient list page after adding
-    res.redirect("/patients");
+    res.redirect("/doctors");
   });
 });
 
-// POST route to handle edit submission
 router.post("/:id/edit", (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (Number.isNaN(id)) {
-    return res.redirect("/patients");
+    return res.redirect("/doctors");
   }
-  const { fullName, birthDate, illness } = req.body;
-  const sql =
-    "UPDATE patients SET fullName = ?, birthDate = ?, illness = ? WHERE id = ?";
 
-  db.run(sql, [fullName, birthDate, illness, id], (err) => {
+  const { fullName, specialty } = req.body;
+  const sql =
+    "UPDATE doctors SET fullName = ?, specialty = ? WHERE id = ?";
+
+  db.run(sql, [fullName, specialty, id], (err) => {
     if (err) {
       console.error(err.message);
-      return res.redirect(`/patients?error=edit&id=${id}`);
+      return res.redirect(`/doctors?error=edit&id=${id}`);
     }
-    res.redirect("/patients");
+    res.redirect("/doctors");
   });
 });
 
-// POST route to delete a patient
 router.post("/:id/delete", (req, res) => {
   const id = parseInt(req.params.id, 10);
   if (Number.isNaN(id)) {
-    return res.redirect("/patients");
+    return res.redirect("/doctors");
   }
 
-  db.run("DELETE FROM patients WHERE id = ?", [id], (err) => {
+  db.run("DELETE FROM doctors WHERE id = ?", [id], (err) => {
     if (err) {
       console.error(err.message);
-      return res.redirect(`/patients?error=delete&id=${id}`);
+      return res.redirect(`/doctors?error=delete&id=${id}`);
     }
-    res.redirect("/patients");
+    res.redirect("/doctors");
   });
 });
 

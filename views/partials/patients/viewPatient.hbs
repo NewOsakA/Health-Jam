@@ -1,0 +1,46 @@
+<div class="modal" aria-hidden="true" data-modal="view-patient">
+  <div class="modal__backdrop" data-close-modal="true"></div>
+  <div
+    class="modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="viewPatientTitle"
+  >
+    <button
+      class="modal__close icon-button secondary"
+      type="button"
+      data-close-modal="true"
+      aria-label="Close patient details"
+    >
+      ✖️
+    </button>
+    <h3 id="viewPatientTitle" class="modal__title m0">Patient details</h3>
+    <p class="modal__subtitle text-muted">
+      View the saved information for this patient.
+    </p>
+    <div class="modal__form modal__form--static" data-view-patient>
+      <label>
+        <span>Full name</span>
+        <input type="text" readonly data-view-field="name" />
+      </label>
+      <label>
+        <span>Birth date</span>
+        <input type="date" readonly data-view-field="birth" />
+      </label>
+      <label class="modal__full">
+        <span>Condition / Illness</span>
+        <textarea rows="3" readonly data-view-field="illness"></textarea>
+      </label>
+      <div class="modal__actions modal__full">
+        <button
+          type="button"
+          class="secondary"
+          data-close-modal="true"
+          data-focus-default
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
