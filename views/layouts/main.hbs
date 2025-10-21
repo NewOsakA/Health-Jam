@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{{#if title}}{{title}} · {{/if}}Health Jam Clinic</title>
+    <title>{{#if title}}{{title}} · {{/if}}Health Jam</title>
 
     {{!-- Pico.css (CDN) --}}
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@2.0.6/css/pico.min.css" />
@@ -67,5 +67,35 @@
         </div>
       </div>
     </div>
+    <script>
+      (function () {
+        const nav = document.querySelector('[data-nav]');
+        const toggle = document.querySelector('.nav-toggle');
+        if (!nav || !toggle) return;
+
+        toggle.addEventListener('click', () => {
+          const isOpen = nav.classList.toggle('is-open');
+          toggle.classList.toggle('is-open', isOpen);
+          toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        nav.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            if (!nav.classList.contains('is-open')) return;
+            nav.classList.remove('is-open');
+            toggle.classList.remove('is-open');
+            toggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key !== 'Escape' || !nav.classList.contains('is-open')) return;
+          nav.classList.remove('is-open');
+          toggle.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.focus();
+        });
+      })();
+    </script>
   </body>
 </html>

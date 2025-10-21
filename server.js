@@ -7,10 +7,9 @@ Target grade: 5
 Project Web Dev Fun 2025
 
 Admininistrator login: admin
-Administrator password: "wdf#2025" --> "$2b$12$p5.UuPb9Zh.siIc78Ie.Nu9eGx9d50LT2pkecedig2P.6CdfL1ZUa"
+Administrator password: "wdf#2025" --> "$2b$12$xleAC2W6CXw35iigvoApl.zfUonN4Kh93ufrHwtEZxMGSVZjhUMba"
 
 Some code in this project was generated with the help of ChatGPT and Gemini
-Several images come from the web (not made by us): Google Images, Unsplash, Pexels, Pixabay.
 */
 
 const path = require("path");

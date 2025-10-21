@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
   ]);
 
   res.render("home", {
-    title: "Health Jam Clinic",
+    title: "Health Jam",
     stats: [
       { label: "Active patients", value: patients },
       { label: "Registered doctors", value: doctors },

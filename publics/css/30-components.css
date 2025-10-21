@@ -102,8 +102,8 @@ button.secondary {
   color: var(--text);
 }
 button.inline {
-  margin-bottom: 0.5rem;
   margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 button.secondary:hover,
 button.secondary:focus {
@@ -308,6 +308,8 @@ button.danger:focus {
   align-items: center;
   gap: 0.4rem;
   justify-content: center;
+  min-width: 6.5rem;
+  white-space: nowrap;
 }
 .table-condition {
   max-width: 22rem;
@@ -329,6 +331,21 @@ button.danger:focus {
   line-height: 1;
   transition: background 0.15s ease, border-color 0.15s ease,
     box-shadow 0.15s ease;
+}
+.icon-button + .icon-button {
+  margin-left: 0;
+}
+@media (max-width: 640px) {
+  .table-actions {
+    min-width: 7rem;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    display: flex;
+  }
+  .icon-button {
+    width: 2rem;
+    height: 2rem;
+  }
 }
 .icon-button:hover,
 .icon-button:focus {
