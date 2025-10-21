@@ -25,6 +25,7 @@ thead th {
   top: 0;
   background: #f1f5f9;
   border-bottom: 1px solid var(--line);
+  color: var(--brand-ink);
 }
 tbody tr:nth-child(odd) {
   background-color: #ffffff;
@@ -124,6 +125,10 @@ button.danger:focus {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+}
+.page-header h2,
+.page-header p {
+  color: var(--brand-ink);
 }
 .page-header__action {
   display: inline-flex;

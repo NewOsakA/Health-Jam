@@ -1,0 +1,81 @@
+<div
+  class="modal"
+  id="add-account-modal"
+  aria-hidden="true"
+  data-modal="add-account"
+>
+  <div class="modal__backdrop" data-close-modal="true"></div>
+  <div
+    class="modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="addAccountTitle"
+  >
+    <button
+      class="modal__close icon-button secondary"
+      type="button"
+      data-close-modal="true"
+      aria-label="Close account form"
+    >
+      ✖️
+    </button>
+    <h3 id="addAccountTitle" class="modal__title m0">Add account</h3>
+    <p class="modal__subtitle text-muted" data-account-modal-subtitle>
+      Create a new user and assign their role.
+    </p>
+    <form
+      action="/accounts/add"
+      method="POST"
+      class="modal__form"
+      data-account-form
+    >
+      <input type="hidden" name="id" value="" />
+      <label>
+        <span>Username</span>
+        <input type="text" name="username" minlength="3" required />
+      </label>
+      <label class="modal__full" data-password-row>
+        <span>Password</span>
+        <input
+          type="password"
+          name="password"
+          minlength="6"
+          autocomplete="new-password"
+          required
+          data-account-password
+        />
+      </label>
+      <label class="modal__full" data-confirm-row>
+        <span>Confirm password</span>
+        <input
+          type="password"
+          name="confirmPassword"
+          minlength="6"
+          autocomplete="new-password"
+          required
+          data-account-confirm
+        />
+      </label>
+      <label>
+        <span>Role</span>
+        <select name="is_admin" data-account-role>
+          <option value="0">Standard user</option>
+          <option value="1">Administrator</option>
+        </select>
+      </label>
+      <p class="text-muted modal__full small-note" data-account-note>
+        Password must be at least 6 characters.
+      </p>
+      <div class="modal__actions modal__full">
+        <button type="submit" data-account-submit>Save account</button>
+        <button
+          type="button"
+          class="secondary"
+          data-close-modal="true"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

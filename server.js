@@ -40,6 +40,15 @@ const Handlebars = require("handlebars");
 Handlebars.registerHelper("eq", (a, b) => a === b);
 Handlebars.registerHelper("or", (a, b) => a || b);
 Handlebars.registerHelper("year", () => new Date().getFullYear());
+Handlebars.registerHelper("formatDate", (value) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+});
 
 // helpers
 Handlebars.registerHelper("active", (expectedPath, currentPath) =>

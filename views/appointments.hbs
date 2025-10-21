@@ -1,0 +1,97 @@
+<div class="page-header">
+  <div>
+    <h2 class="m0">Appointments</h2>
+    <p class="m0">Review upcoming visits and manage scheduling</p>
+  </div>
+  <button
+    type="button"
+    class="page-header__action"
+    data-open-modal="add-appointment"
+    data-modal-mode="create"
+  >
+    Add appointment
+  </button>
+</div>
+
+<div class="table-wrap mt1">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Patient</th>
+        <th>Doctor</th>
+        <th>Date</th>
+        <th style="width:110px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each appointments}}
+        <tr>
+          <td>{{id}}</td>
+          <td>
+            <a
+              href="/appointments/{{id}}"
+              data-open-modal="view-appointment"
+              data-appointment-id="{{id}}"
+              data-appointment-patient="{{patient_name}}"
+              data-appointment-doctor="{{doctor_name}} ({{doctor_specialty}})"
+              data-appointment-date="{{appointmentDate}}"
+            >
+              {{patient_name}}
+            </a>
+          </td>
+          <td>{{doctor_name}} <span class="text-muted">({{doctor_specialty}})</span></td>
+          <td>{{formatDate appointmentDate}}</td>
+          <td class="table-actions">
+            <button
+              type="button"
+              class="icon-button secondary inline"
+              title="Edit appointment"
+              aria-label="Edit appointment"
+              data-open-modal="add-appointment"
+              data-modal-mode="edit"
+              data-appointment-id="{{id}}"
+              data-appointment-patient-id="{{patient_id}}"
+              data-appointment-doctor-id="{{doctor_id}}"
+              data-appointment-date="{{appointmentDate}}"
+            >
+              ✏️
+            </button>
+            <form
+              action="/appointments/{{id}}/delete"
+              method="POST"
+              class="inline-form"
+              data-confirm="delete"
+              data-confirm-name="appointment #{{id}}"
+            >
+              <button
+                type="submit"
+                class="icon-button secondary inline"
+                title="Delete appointment"
+                aria-label="Delete appointment"
+              >🗑️</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{#if pagination}}
+  <nav class="pagination">
+    {{#if pagination.prev}}<a href="{{pagination.prev}}">Prev</a>{{/if}}
+    {{#each pagination.pages}}
+      {{#if this.active}}<span class="active">{{this.n}}</span>{{else}}<a
+          href="{{this.url}}"
+        >{{this.n}}</a>{{/if}}
+    {{/each}}
+    {{#if pagination.next}}<a href="{{pagination.next}}">Next</a>{{/if}}
+  </nav>
+{{/if}}
+
+{{> appointments/addAppointment}}
+
+{{> appointments/viewAppointment}}
+
+<script src="/js/appointments.js" defer></script>

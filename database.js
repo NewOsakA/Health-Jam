@@ -62,6 +62,16 @@ async function ensureUsersTable() {
     await run(db, `ALTER TABLE users ADD COLUMN is_admin INTEGER DEFAULT 0`);
     console.log("Added missing column: is_admin (default false).");
   }
+
+  const hasCreatedAt = columns.some((col) => col.name === "createdAt");
+  if (!hasCreatedAt) {
+    await run(db, `ALTER TABLE users ADD COLUMN createdAt TEXT`);
+    await run(
+      db,
+      `UPDATE users SET createdAt = COALESCE(createdAt, datetime('now'))`
+    );
+    console.log("Added missing column: createdAt.");
+  }
 }
 
 async function ensureAdminPassword() {

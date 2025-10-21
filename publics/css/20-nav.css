@@ -4,6 +4,7 @@
 .header {
   background: #fff;
   border-bottom: 1px solid var(--line);
+  height: fit-content;
 }
 
 .brand {
@@ -47,14 +48,6 @@
 .nav-right a.is-active {
   background: var(--brand);
   color: #fff;
-}
-
-/* Divider */
-.nav-right .divider {
-  width: 1px;
-  height: 24px;
-  background: var(--line);
-  margin: 0 0.5rem;
 }
 
 /* Dropdown menu */

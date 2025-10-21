@@ -1,27 +1,106 @@
-<section class="panel">
-  <h2 class="m0">User Accounts</h2>
-  <p class="m0">Manage application users.</p>
-
-  <div class="table-wrap mt1">
-    <table>
-      <thead>
-        <tr>
-          <th style="width:70px;">ID</th>
-          <th>Username</th>
-          <th style="width:120px;">Role</th>
-          <th style="width:180px;">Created</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each users}}
-          <tr>
-            <td>{{id}}</td>
-            <td>{{username}}</td>
-            <td>{{#if is_admin}}Admin{{else}}User{{/if}}</td>
-            <td>{{createdAt}}</td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
+<div class="page-header">
+  <div>
+    <h2 class="m0">Accounts</h2>
+    <p class="m0">Manage application users and roles</p>
   </div>
-</section>
+  <button
+    type="button"
+    class="page-header__action"
+    data-open-modal="add-account"
+    data-modal-mode="create"
+  >
+    Add account
+  </button>
+</div>
+
+<div class="table-wrap mt1">
+  <table>
+    <thead>
+      <tr>
+        <th style="width:70px;">ID</th>
+        <th>Username</th>
+        <th style="width:140px;">Role</th>
+        <th style="width:200px;">Created</th>
+        <th style="width:110px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+        <tr>
+          <td>{{id}}</td>
+          <td>
+            <a
+              href="/accounts/{{id}}"
+              data-open-modal="view-account"
+              data-account-id="{{id}}"
+              data-account-username="{{username}}"
+              data-account-role="{{#if is_admin}}Administrator{{else}}Standard user{{/if}}"
+              data-account-created="{{createdAt}}"
+            >
+              {{username}}
+              {{#if (eq ../selfId id)}}<span class="text-muted">(You)</span>{{/if}}
+            </a>
+          </td>
+          <td>
+            {{#if is_admin}}
+              <span class="badge success">Admin</span>
+            {{else}}
+              <span class="badge">User</span>
+            {{/if}}
+          </td>
+          <td>{{formatDate createdAt}}</td>
+          <td class="table-actions">
+            <button
+              type="button"
+              class="icon-button secondary inline"
+              title="Edit account"
+              aria-label="Edit account"
+              data-open-modal="add-account"
+              data-modal-mode="edit"
+              data-account-id="{{id}}"
+              data-account-username="{{username}}"
+              data-account-admin="{{is_admin}}"
+              data-account-created="{{createdAt}}"
+              data-account-self="{{eq ../selfId id}}"
+            >
+              ✏️
+            </button>
+            <form
+              action="/accounts/{{id}}/delete"
+              method="POST"
+              class="inline-form"
+              data-confirm="delete"
+              data-confirm-name="{{username}}"
+            >
+              <button
+                type="submit"
+                class="icon-button secondary inline"
+                title="Delete account"
+                aria-label="Delete account"
+                {{#if (eq ../selfId id)}}disabled{{/if}}
+              >🗑️</button>
+            </form>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{#if pagination}}
+  <nav class="pagination">
+    {{#if pagination.prev}}<a href="{{pagination.prev}}">Prev</a>{{/if}}
+    {{#each pagination.pages}}
+      {{#if this.active}}<span class="active">{{this.n}}</span>{{else}}<a
+          href="{{this.url}}"
+        >{{this.n}}</a>{{/if}}
+    {{/each}}
+    {{#if pagination.next}}<a href="{{pagination.next}}">Next</a>{{/if}}
+  </nav>
+{{/if}}
+
+{{> accounts/addAccount}}
+
+{{> accounts/viewAccount}}
+
+<script src="/js/accounts.js" defer></script>

@@ -1,0 +1,67 @@
+<div
+  class="modal"
+  id="add-appointment-modal"
+  aria-hidden="true"
+  data-modal="add-appointment"
+>
+  <div class="modal__backdrop" data-close-modal="true"></div>
+  <div
+    class="modal__dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="addAppointmentTitle"
+  >
+    <button
+      class="modal__close icon-button secondary"
+      type="button"
+      data-close-modal="true"
+      aria-label="Close add appointment form"
+    >
+      ✖️
+    </button>
+    <h3 id="addAppointmentTitle" class="modal__title m0">Add appointment</h3>
+    <p class="modal__subtitle text-muted" data-appointment-modal-subtitle>
+      Select a patient, doctor, and date to schedule an appointment.
+    </p>
+    <form
+      action="/appointments/add"
+      method="POST"
+      class="modal__form"
+      data-appointment-form
+    >
+      <input type="hidden" name="id" value="" />
+      <label>
+        <span>Patient</span>
+        <select name="patient_id" required data-appointment-patient>
+          <option value="">Select a patient</option>
+          {{#each patientsList}}
+            <option value="{{this.id}}">{{this.fullName}}</option>
+          {{/each}}
+        </select>
+      </label>
+      <label>
+        <span>Doctor</span>
+        <select name="doctor_id" required data-appointment-doctor>
+          <option value="">Select a doctor</option>
+          {{#each doctorsList}}
+            <option value="{{this.id}}">{{this.fullName}} · {{this.specialty}}</option>
+          {{/each}}
+        </select>
+      </label>
+      <label class="modal__full">
+        <span>Appointment date</span>
+        <input type="datetime-local" name="appointmentDate" required data-appointment-date />
+      </label>
+      <div class="modal__actions modal__full">
+        <button type="submit" data-appointment-submit>Save appointment</button>
+        <button
+          type="button"
+          class="secondary"
+          data-close-modal="true"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
