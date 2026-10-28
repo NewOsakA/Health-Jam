@@ -1,20 +1,16 @@
-# 🩺 Health Jam
+# Health-Jam
 
 _A hospital management web application (TGWK12 – Web Development Fundamentals, Autumn 2025)_
 
-> “Professional care, simplified scheduling, and clear records.”
-
----
-
-## 📖 Overview
+## Overview
 
 Health Jam is a full‑stack hospital management system built with **Node.js**, **Express**, **Handlebars**, and **SQLite3**. It streamlines how a clinic tracks patients, manages doctors, and schedules appointments while staying responsive on desktop, tablet, and mobile.
 
-The project was developed as the final individual assignment for **TGWK12 – Web Development Fundamentals** at **Jönköping University** with the goal of meeting the full **Grade 5** requirements (see rubric in `tgwk12-grading-criteria-project-v1.2.pdf`).
+The project was developed as the final individual assignment for **TGWK12 – Web Development Fundamentals** at **Jönköping University** by Achirawich Phongpanich ([NewOsakA](https://github.com/NewOsakA)).
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - **Patients module** – Create, edit, delete, and paginate through patient records with quick condition notes.
 - **Doctors module** – Maintain a specialist directory and update credentials on the fly.
@@ -24,7 +20,7 @@ The project was developed as the final individual assignment for **TGWK12 – We
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -35,8 +31,8 @@ The project was developed as the final individual assignment for **TGWK12 – We
 
 ```bash
 # Clone the repository
- git clone <repo-url>
- cd Health-Jam
+git clone https://github.com/NewOsakA/Health-Jam.git
+cd Health-Jam
 
 # Install dependencies
  npm install
@@ -63,10 +59,10 @@ The repository ships with `clinic.db` preloaded with:
 
 ---
 
-## 🗂 Project Structure
+## Project Structure
 
 ```
-HealthHub/
+Health-Jam/
 ├── publics/               # Static assets & CSS, JS
 ├── routes/                # Express route modules (main, patients, doctors, appointments, accounts)
 ├── views/                 # Handlebars layouts, pages, and partials
@@ -79,3 +75,21 @@ HealthHub/
 ├── server.js              # Express
 └── package.json
 ```
+
+
+## Engineering Notes
+
+The application uses Express route modules for each domain, Handlebars for server-rendered pages, and SQLite for relational data and session storage. Login uses bcrypt password verification, while middleware separates authenticated access from administrator actions.
+
+- [Application and session configuration](server.js)
+- [Feature routes](routes)
+- [Access-control middleware](middleware)
+- [Database setup](database.js)
+
+## Scope and Attribution
+
+This is an educational application for local development. The seeded accounts are for that environment; the project is not presented as a production hospital system.
+
+Achirawich Phongpanich developed the individual coursework project, covering patient, doctor, appointment, account, and interface workflows. Some code was generated with help from ChatGPT and Gemini, as acknowledged in the source.
+
+The `npm test` script is currently a placeholder; no automated test coverage is claimed. To inspect the main flows locally, start the application, sign in with the seeded administrator, and check patient and doctor management, appointment creation, and account permissions.
